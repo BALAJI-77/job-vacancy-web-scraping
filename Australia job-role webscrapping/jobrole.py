@@ -24,7 +24,6 @@ for option in all_options:
     
 all_links2=[]
 for links in all_links:
-    print(links)
     driver= webdriver.Chrome()
     driver.get(links)
     time.sleep(3)
@@ -34,7 +33,6 @@ for links in all_links:
         all_links2.append(element2.text)
     driver.close()
 for links3 in all_links2:
-    print(links3)
     file = pd.ExcelFile('List_of_Jobs.xlsx')
     df = pd.read_excel(file)
     df1 = pd.DataFrame(df)
