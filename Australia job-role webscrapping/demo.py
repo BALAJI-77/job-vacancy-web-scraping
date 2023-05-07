@@ -19,16 +19,13 @@ async def task(name, work_queue):
     async with aiohttp.ClientSession() as session:
 
         while not work_queue.empty():
-            print("####################################")
             url = await work_queue.get()
             driver = webdriver.Chrome("D:\Project\scarpy-selenium\chromedriver.exe")
             driver.get(url)
             print(f"Task {name} getting URL: {url}")
-            print("------------------------------------")
             timer.start()
             async with session.get(url) as response:
                 await response.text()
-                print("++++++++++++++++++++++++++++++++")
             timer.stop()
 
 async def main():
@@ -50,13 +47,11 @@ async def main():
         "http://twitter.com",
     ]:
         # await work_queue.put(url)
-        print("11111111111111111111111111111")
         print(await work_queue.put(url))
     # Run the tasks
     with Timer(text="\nTotal elapsed time: {:.1f}"):
         
          #( asyncio.create_task) used to submit the coroutines to run in background
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         await asyncio.gather(
             asyncio.create_task(task("One", work_queue)),   
             asyncio.create_task(task("Two", work_queue)),
